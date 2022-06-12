@@ -14,6 +14,7 @@ https://linuxhint.com/building-your-own-network-monitor-with-pyshark/
   Well there is no user input yet. So edit file and write your desired port.
   
   > bpf_filter = "tcp port 8000"
+  
  Then simply start program. It does his thing. If you wanna close use KeyboardInterrupted (CTRL+C) 
 
 ## Licence
