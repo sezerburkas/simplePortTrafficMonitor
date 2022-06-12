@@ -1,4 +1,4 @@
-# simplePortTrafficMonitor
+## simplePortTrafficMonitor
 This is a simple port traffic monitor based on article in this link: 
 https://linuxhint.com/building-your-own-network-monitor-with-pyshark/
 
