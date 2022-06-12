@@ -1,12 +1,29 @@
 import pyshark, time, json
 
+print("Simple Port Traffic Monitor by Sezer Burkas \n")
+print("This is a simple port traffic monitor.")
+print("-"*100)
+print("Waiting for traffic...")
+
 bpf_filter = "tcp port 8000"
 capture = pyshark.LiveCapture(interface="eth0", bpf_filter=bpf_filter)
+
+#create file if not exist
+f = open("log.json", "w")
+f.close()
 
 #open file 
 with open("log.json", "r+") as f:
     #read last data
-    data = json.loads(f.read())
+    if f.read() == "":
+        data = {
+            "log":[
+
+            ]
+        }
+    else:
+        data = json.loads(f.read())
+        
     for packet in capture.sniff_continuously():
         # adjusted output
         try:
@@ -33,16 +50,13 @@ with open("log.json", "r+") as f:
                 "protocol":protocol
             }
 
-            print("\n")
             # output packet info
             print("%s IP %s:%s <-> %s:%s (%s)" % (localtime, src_addr, src_port, dst_addr, dst_port, protocol))
-            print("_"*100)
 
             #log the data
             data["log"].append(log)
-            f.write(json.dumps(data))
+            f.write(json.dumps(data))  
         except AttributeError as e:
             # ignore packets other than TCP, UDP and IPv4
             pass
-    
  
